@@ -225,10 +225,10 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: date_dim
-                  filterExpr: (((d_year = 2000) and (d_qoy = 3)) or ((d_year = 2000) and (d_qoy = 2)) or ((d_year = 2000) and (d_qoy = 1))) (type: boolean)
+                  filterExpr: (((d_qoy = 3) and (d_year = 2000)) or ((d_qoy = 2) and (d_year = 2000)) or ((d_qoy = 1) and (d_year = 2000))) (type: boolean)
                   Statistics: Num rows: 73049 Data size: 1168784 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((d_year = 2000) and (d_qoy = 3)) (type: boolean)
+                    predicate: ((d_qoy = 3) and (d_year = 2000)) (type: boolean)
                     Statistics: Num rows: 92 Data size: 1472 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: d_date_sk (type: bigint)
@@ -269,7 +269,7 @@ STAGE PLANS:
                         Map-reduce partition columns: _col0 (type: bigint)
                         Statistics: Num rows: 92 Data size: 736 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((d_year = 2000) and (d_qoy = 2)) (type: boolean)
+                    predicate: ((d_qoy = 2) and (d_year = 2000)) (type: boolean)
                     Statistics: Num rows: 92 Data size: 1472 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: d_date_sk (type: bigint)
@@ -310,7 +310,7 @@ STAGE PLANS:
                         Map-reduce partition columns: _col0 (type: bigint)
                         Statistics: Num rows: 92 Data size: 736 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((d_year = 2000) and (d_qoy = 1)) (type: boolean)
+                    predicate: ((d_qoy = 1) and (d_year = 2000)) (type: boolean)
                     Statistics: Num rows: 92 Data size: 1472 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: d_date_sk (type: bigint)

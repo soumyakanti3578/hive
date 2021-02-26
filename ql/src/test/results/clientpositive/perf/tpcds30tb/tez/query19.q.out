@@ -76,11 +76,11 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: store_sales
-                  filterExpr: (ss_customer_sk is not null and ss_store_sk is not null) (type: boolean)
+                  filterExpr: (ss_store_sk is not null and ss_customer_sk is not null) (type: boolean)
                   probeDecodeDetails: cacheKey:HASH_MAP_MAPJOIN_113_container, bigKeyColName:ss_item_sk, smallTablePos:1, keyRatio:1.5562891838619784E-4
                   Statistics: Num rows: 82510879939 Data size: 11632478818736 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: (ss_customer_sk is not null and ss_store_sk is not null) (type: boolean)
+                    predicate: (ss_store_sk is not null and ss_customer_sk is not null) (type: boolean)
                     Statistics: Num rows: 78670147920 Data size: 11091007998224 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: ss_item_sk (type: bigint), ss_customer_sk (type: bigint), ss_store_sk (type: bigint), ss_ext_sales_price (type: decimal(7,2)), ss_sold_date_sk (type: bigint)
@@ -119,10 +119,10 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: date_dim
-                  filterExpr: ((d_year = 1999) and (d_moy = 11)) (type: boolean)
+                  filterExpr: ((d_moy = 11) and (d_year = 1999)) (type: boolean)
                   Statistics: Num rows: 73049 Data size: 1168784 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((d_year = 1999) and (d_moy = 11)) (type: boolean)
+                    predicate: ((d_moy = 11) and (d_year = 1999)) (type: boolean)
                     Statistics: Num rows: 31 Data size: 496 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: d_date_sk (type: bigint)

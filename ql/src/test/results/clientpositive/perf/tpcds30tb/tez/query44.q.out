@@ -20,7 +20,7 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: ss1
-                  filterExpr: ((ss_store_sk = 410L) or (ss_hdemo_sk is null and (ss_store_sk = 410L))) (type: boolean)
+                  filterExpr: ((ss_store_sk = 410L) or ((ss_store_sk = 410L) and ss_hdemo_sk is null)) (type: boolean)
                   Statistics: Num rows: 86404891377 Data size: 10592345773408 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
                     predicate: (ss_store_sk = 410L) (type: boolean)
@@ -44,7 +44,7 @@ STAGE PLANS:
                           Statistics: Num rows: 49657983 Data size: 6356221824 Basic stats: COMPLETE Column stats: COMPLETE
                           value expressions: _col1 (type: decimal(17,2)), _col2 (type: bigint)
                   Filter Operator
-                    predicate: (ss_hdemo_sk is null and (ss_store_sk = 410L)) (type: boolean)
+                    predicate: ((ss_store_sk = 410L) and ss_hdemo_sk is null) (type: boolean)
                     Statistics: Num rows: 4472322 Data size: 546649416 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: ss_net_profit (type: decimal(7,2))
@@ -147,7 +147,7 @@ STAGE PLANS:
                             Statistics: Num rows: 154937 Data size: 35945384 Basic stats: COMPLETE Column stats: COMPLETE
                             value expressions: _col0 (type: bigint)
         Reducer 3 
-            Execution mode: vectorized, llap
+            Execution mode: llap
             Reduce Operator Tree:
               Select Operator
                 expressions: VALUE._col0 (type: bigint), KEY.reducesinkkey1 (type: decimal(11,6))
@@ -171,7 +171,7 @@ STAGE PLANS:
                               arguments: _col1
                               name: rank
                               window function: GenericUDAFRankEvaluator
-                              window frame: ROWS PRECEDING(MAX)~FOLLOWING(MAX)
+                              window frame: RANGE PRECEDING(MAX)~FOLLOWING(MAX)
                               isPivotResult: true
                   Statistics: Num rows: 154937 Data size: 18592440 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
@@ -245,7 +245,7 @@ STAGE PLANS:
                         output format: org.apache.hadoop.hive.ql.io.HiveSequenceFileOutputFormat
                         serde: org.apache.hadoop.hive.serde2.lazy.LazySimpleSerDe
         Reducer 5 
-            Execution mode: vectorized, llap
+            Execution mode: llap
             Reduce Operator Tree:
               Select Operator
                 expressions: VALUE._col0 (type: bigint), KEY.reducesinkkey1 (type: decimal(11,6))
@@ -269,7 +269,7 @@ STAGE PLANS:
                               arguments: _col1
                               name: rank
                               window function: GenericUDAFRankEvaluator
-                              window frame: ROWS PRECEDING(MAX)~FOLLOWING(MAX)
+                              window frame: RANGE PRECEDING(MAX)~FOLLOWING(MAX)
                               isPivotResult: true
                   Statistics: Num rows: 154937 Data size: 18592440 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator

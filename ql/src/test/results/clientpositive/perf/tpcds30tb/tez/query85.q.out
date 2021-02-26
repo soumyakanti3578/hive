@@ -197,10 +197,10 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: cd2
-                  filterExpr: ((cd_marital_status) IN ('M', 'D', 'U') and (cd_education_status) IN ('4 yr Degree         ', 'Primary             ', 'Advanced Degree     ')) (type: boolean)
+                  filterExpr: ((cd_education_status) IN ('4 yr Degree         ', 'Primary             ', 'Advanced Degree     ') and (cd_marital_status) IN ('M', 'D', 'U')) (type: boolean)
                   Statistics: Num rows: 1920800 Data size: 359189600 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((cd_marital_status) IN ('M', 'D', 'U') and (cd_education_status) IN ('4 yr Degree         ', 'Primary             ', 'Advanced Degree     ')) (type: boolean)
+                    predicate: ((cd_education_status) IN ('4 yr Degree         ', 'Primary             ', 'Advanced Degree     ') and (cd_marital_status) IN ('M', 'D', 'U')) (type: boolean)
                     Statistics: Num rows: 493920 Data size: 92363040 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: cd_demo_sk (type: bigint), cd_marital_status (type: char(1)), cd_education_status (type: char(20))

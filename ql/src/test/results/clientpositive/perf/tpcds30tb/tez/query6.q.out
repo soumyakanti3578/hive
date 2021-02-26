@@ -233,11 +233,11 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: i
-                  filterExpr: (i_current_price is not null and i_category is not null) (type: boolean)
+                  filterExpr: (i_category is not null and i_current_price is not null) (type: boolean)
                   probeDecodeDetails: cacheKey:HASH_MAP_MAPJOIN_170_container, bigKeyColName:i_category, smallTablePos:1, keyRatio:0.997474025974026
                   Statistics: Num rows: 462000 Data size: 96889408 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: (i_current_price is not null and i_category is not null) (type: boolean)
+                    predicate: (i_category is not null and i_current_price is not null) (type: boolean)
                     Statistics: Num rows: 460833 Data size: 96644674 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: i_item_sk (type: bigint), i_current_price (type: decimal(7,2)), i_category (type: char(50))
