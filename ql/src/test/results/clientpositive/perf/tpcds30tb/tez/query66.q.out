@@ -19,11 +19,11 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: web_sales
-                  filterExpr: (ws_warehouse_sk is not null and ws_ship_mode_sk is not null and ws_sold_time_sk is not null) (type: boolean)
+                  filterExpr: (ws_sold_time_sk is not null and ws_ship_mode_sk is not null and ws_warehouse_sk is not null) (type: boolean)
                   probeDecodeDetails: cacheKey:HASH_MAP_MAPJOIN_198_container, bigKeyColName:ws_ship_mode_sk, smallTablePos:1, keyRatio:0.0077726123278109545
                   Statistics: Num rows: 21594638446 Data size: 5613925340868 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: (ws_warehouse_sk is not null and ws_ship_mode_sk is not null and ws_sold_time_sk is not null) (type: boolean)
+                    predicate: (ws_sold_time_sk is not null and ws_ship_mode_sk is not null and ws_warehouse_sk is not null) (type: boolean)
                     Statistics: Num rows: 21586536205 Data size: 5611819013600 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: ws_sold_time_sk (type: bigint), ws_ship_mode_sk (type: bigint), ws_warehouse_sk (type: bigint), ws_sold_date_sk (type: bigint), (ws_sales_price * CAST( ws_quantity AS decimal(10,0))) (type: decimal(18,2)), (ws_net_paid_inc_tax * CAST( ws_quantity AS decimal(10,0))) (type: decimal(18,2))

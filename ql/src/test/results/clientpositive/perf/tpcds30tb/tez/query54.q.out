@@ -290,10 +290,10 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: item
-                  filterExpr: ((i_category = 'Jewelry                                           ') and (i_class = 'consignment                                       ')) (type: boolean)
+                  filterExpr: ((i_class = 'consignment                                       ') and (i_category = 'Jewelry                                           ')) (type: boolean)
                   Statistics: Num rows: 462000 Data size: 87780000 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((i_category = 'Jewelry                                           ') and (i_class = 'consignment                                       ')) (type: boolean)
+                    predicate: ((i_class = 'consignment                                       ') and (i_category = 'Jewelry                                           ')) (type: boolean)
                     Statistics: Num rows: 424 Data size: 80560 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: i_item_sk (type: bigint)

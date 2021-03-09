@@ -62,10 +62,10 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: date_dim
-                  filterExpr: ((d_moy = 12) and (d_year = 2001)) (type: boolean)
+                  filterExpr: ((d_year = 2001) and (d_moy = 12)) (type: boolean)
                   Statistics: Num rows: 73049 Data size: 1168784 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: ((d_moy = 12) and (d_year = 2001)) (type: boolean)
+                    predicate: ((d_year = 2001) and (d_moy = 12)) (type: boolean)
                     Statistics: Num rows: 31 Data size: 496 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: d_date_sk (type: bigint)

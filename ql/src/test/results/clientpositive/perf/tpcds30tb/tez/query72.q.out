@@ -23,11 +23,11 @@ STAGE PLANS:
             Map Operator Tree:
                 TableScan
                   alias: catalog_sales
-                  filterExpr: (cs_quantity is not null and cs_bill_cdemo_sk is not null and cs_ship_date_sk is not null and cs_bill_hdemo_sk is not null) (type: boolean)
+                  filterExpr: (cs_quantity is not null and cs_bill_hdemo_sk is not null and cs_bill_cdemo_sk is not null and cs_ship_date_sk is not null) (type: boolean)
                   probeDecodeDetails: cacheKey:HASH_MAP_MAPJOIN_255_container, bigKeyColName:cs_bill_cdemo_sk, smallTablePos:1, keyRatio:1.4649422226409529E-9
                   Statistics: Num rows: 43005109025 Data size: 2576434485612 Basic stats: COMPLETE Column stats: COMPLETE
                   Filter Operator
-                    predicate: (cs_quantity is not null and cs_bill_cdemo_sk is not null and cs_ship_date_sk is not null and cs_bill_hdemo_sk is not null) (type: boolean)
+                    predicate: (cs_quantity is not null and cs_bill_hdemo_sk is not null and cs_bill_cdemo_sk is not null and cs_ship_date_sk is not null) (type: boolean)
                     Statistics: Num rows: 42576611738 Data size: 2550763229048 Basic stats: COMPLETE Column stats: COMPLETE
                     Select Operator
                       expressions: cs_ship_date_sk (type: bigint), cs_bill_cdemo_sk (type: bigint), cs_bill_hdemo_sk (type: bigint), cs_item_sk (type: bigint), cs_promo_sk (type: bigint), cs_order_number (type: bigint), cs_quantity (type: int), cs_sold_date_sk (type: bigint)
