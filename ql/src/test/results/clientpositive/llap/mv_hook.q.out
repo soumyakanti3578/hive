@@ -1,0 +1,20 @@
+PREHOOK: query: CREATE TABLE tbl1(name string, id int) stored as orc tblproperties("transactional"="true")
+PREHOOK: type: CREATETABLE
+PREHOOK: Output: database:default
+PREHOOK: Output: default@tbl1
+POSTHOOK: query: CREATE TABLE tbl1(name string, id int) stored as orc tblproperties("transactional"="true")
+POSTHOOK: type: CREATETABLE
+POSTHOOK: Output: database:default
+POSTHOOK: Output: default@tbl1
+PREHOOK: query: CREATE MATERIALIZED VIEW tbl1_view as select * from tbl1
+PREHOOK: type: CREATE_MATERIALIZED_VIEW
+PREHOOK: Input: default@tbl1
+PREHOOK: Output: database:default
+PREHOOK: Output: default@tbl1_view
+POSTHOOK: query: CREATE MATERIALIZED VIEW tbl1_view as select * from tbl1
+POSTHOOK: type: CREATE_MATERIALIZED_VIEW
+POSTHOOK: Input: default@tbl1
+POSTHOOK: Output: database:default
+POSTHOOK: Output: default@tbl1_view
+POSTHOOK: Lineage: tbl1_view.id SIMPLE [(tbl1)tbl1.FieldSchema(name:id, type:int, comment:null), ]
+POSTHOOK: Lineage: tbl1_view.name SIMPLE [(tbl1)tbl1.FieldSchema(name:name, type:string, comment:null), ]
