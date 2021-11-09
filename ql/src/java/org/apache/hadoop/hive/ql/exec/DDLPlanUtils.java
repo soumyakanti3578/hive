@@ -25,8 +25,11 @@ import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
+import org.antlr.runtime.CommonToken;
+import org.antlr.runtime.TokenRewriteStream;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.hadoop.hive.common.StatsSetupConst;
+import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.TableType;
 import org.apache.hadoop.hive.metastore.Warehouse;
 import org.apache.hadoop.hive.metastore.api.BinaryColumnStatsData;
@@ -51,6 +54,7 @@ import org.apache.hadoop.hive.metastore.api.StorageDescriptor;
 import org.apache.hadoop.hive.metastore.api.StringColumnStatsData;
 import org.apache.hadoop.hive.ql.ddl.ShowUtils;
 import org.apache.hadoop.hive.ql.ddl.table.create.CreateTableOperation;
+import org.apache.hadoop.hive.ql.lib.Node;
 import org.apache.hadoop.hive.ql.metadata.CheckConstraint;
 import org.apache.hadoop.hive.ql.metadata.CheckConstraint.CheckConstraintCol;
 import org.apache.hadoop.hive.ql.metadata.DefaultConstraint;
@@ -58,11 +62,15 @@ import org.apache.hadoop.hive.ql.metadata.DefaultConstraint.DefaultConstraintCol
 import org.apache.hadoop.hive.ql.metadata.ForeignKeyInfo;
 import org.apache.hadoop.hive.ql.metadata.Hive;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
+import org.apache.hadoop.hive.ql.metadata.HiveUtils;
 import org.apache.hadoop.hive.ql.metadata.NotNullConstraint;
 import org.apache.hadoop.hive.ql.metadata.Partition;
 import org.apache.hadoop.hive.ql.metadata.PrimaryKeyInfo;
 import org.apache.hadoop.hive.ql.metadata.Table;
 import org.apache.hadoop.hive.ql.metadata.UniqueConstraint;
+import org.apache.hadoop.hive.ql.parse.ASTNode;
+import org.apache.hadoop.hive.ql.parse.ParseDriver;
+import org.apache.hadoop.hive.ql.parse.ParseException;
 import org.apache.hadoop.hive.ql.parse.PartitionTransformSpec;
 import org.apache.hadoop.hive.ql.util.DirectionUtils;
 import org.apache.hadoop.hive.serde.serdeConstants;
@@ -76,10 +84,12 @@ import org.apache.hive.common.util.HiveStringUtils;
 import org.stringtemplate.v4.ST;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -847,7 +857,7 @@ public class DDLPlanUtils {
         columnDesc.append(" DEFAULT ").append(columnDefaultValueMap.get(columnName));
       }
       if (columnCheckConstraintsMap.containsKey(columnName)) {
-        columnDesc.append(getColumnCheckConstraintDesc(columnCheckConstraintsMap.get(columnName), columns));
+        columnDesc.append(getColumnCheckConstraintDesc(columnCheckConstraintsMap.get(columnName)));
       }
       if (column.getComment() != null) {
         columnDesc.append(" COMMENT '").append(HiveStringUtils.escapeHiveCommand(column.getComment())).append("'");
@@ -859,60 +869,68 @@ public class DDLPlanUtils {
       columnDescs.add(pkDesc);
     }
     columnDescs.addAll(getForeignKeyDesc(table));
-    columnDescs.addAll(getTableCheckConstraintDesc(tableCheckConstraints, columns));
+    columnDescs.addAll(getTableCheckConstraintDesc(tableCheckConstraints));
     return StringUtils.join(columnDescs, ", \n");
   }
 
-  private List<String> getTableCheckConstraintDesc(List<SQLCheckConstraint> tableCheckConstraints,
-                                                   List<String> columns) {
+  private List<String> getTableCheckConstraintDesc(List<SQLCheckConstraint> tableCheckConstraints)
+    throws HiveException {
     List<String> ccDescs = new ArrayList<>();
     for (SQLCheckConstraint constraint: tableCheckConstraints) {
       String enable = constraint.isEnable_cstr()? " enable": " disable";
       String validate = constraint.isValidate_cstr()? " validate": " novalidate";
       String rely = constraint.isRely_cstr()? " rely": " norely";
-      String expression = getCheckExpressionWithBackticks(columns, constraint);
+      String expression = getCheckExpression(constraint);
       ccDescs.add("  constraint " + constraint.getDc_name() + " CHECK(" + expression +
         ")" + enable + validate + rely);
     }
     return ccDescs;
   }
 
-  private String getCheckExpressionWithBackticks(List<String> columns, SQLCheckConstraint constraint) {
-    TreeMap<Integer, String> indexToCols = new TreeMap<>();
-    String expression = constraint.getCheck_expression();
-    for (String col: columns) {
-      int idx = expression.indexOf(col);
-      if (idx == -1) {
-        continue;
-      }
-      indexToCols.put(idx, col);
-      while (idx + col.length() < expression.length()) {
-        idx = expression.indexOf(col, idx + col.length());
-        if (idx == -1) {
-          break;
-        }
-        indexToCols.put(idx, col);
-      }
+  private String getCheckExpression(SQLCheckConstraint constraint) throws HiveException {
+    Set<Integer> startIndex = new HashSet<>();
+    ParseDriver parseDriver = new ParseDriver();
+    ASTNode node;
+    try {
+      node = parseDriver.parseExpression(constraint.getCheck_expression());
+    } catch (ParseException e) {
+      throw new HiveException(e);
     }
-    int prev = 0;
-    StringBuilder newExpression = new StringBuilder();
-    while (!indexToCols.isEmpty()) {
-      Map.Entry<Integer, String> entry = indexToCols.pollFirstEntry();
-      int colIdx = entry.getKey();
-      String col = entry.getValue();
-      newExpression.append(expression, prev, colIdx).append("`").append(col).append("`");
-      prev = colIdx + col.length();
-    }
-    newExpression.append(expression, prev, expression.length());
 
-    return newExpression.toString();
+    Deque<ASTNode> stack = new ArrayDeque<>();
+    stack.push(node);
+    while (!stack.isEmpty()) {
+      ASTNode curr = stack.pop();
+      if ("TOK_TABLE_OR_COL".equals(curr.getToken().getText())) {
+        ASTNode child = (ASTNode) curr.getChild(0);
+        CommonToken token = (CommonToken) child.getToken();
+        startIndex.add(token.getStartIndex());
+      }
+      List<Node> children = curr.getChildren();
+      if (children != null) {
+        for (int i = children.size() - 1; i >= 0; i--) {
+          stack.push((ASTNode) children.get(i));
+        }
+      }
+    }
+
+    TokenRewriteStream tokenRewriteStream = parseDriver.getTokenRewriteStreamOf(constraint.getCheck_expression());
+    for (int i = 0; i < tokenRewriteStream.size(); i++) {
+      CommonToken token = (CommonToken) tokenRewriteStream.get(i);
+      if (startIndex.contains(token.getStartIndex())) {
+        tokenRewriteStream.replace(i, i, HiveUtils.unparseIdentifier(token.getText(), new HiveConf()));
+      }
+    }
+
+    return tokenRewriteStream.toString();
   }
 
-  private String getColumnCheckConstraintDesc(SQLCheckConstraint constraint, List<String> columns) {
+  private String getColumnCheckConstraintDesc(SQLCheckConstraint constraint)
+    throws HiveException {
     String enable = constraint.isEnable_cstr()? " enable": " disable";
     String validate = constraint.isValidate_cstr()? " validate": " novalidate";
     String rely = constraint.isRely_cstr()? " rely": " norely";
-    String expression = getCheckExpressionWithBackticks(columns, constraint);
+    String expression = getCheckExpression(constraint);
     return " CHECK (" + expression + ")" + enable + validate + rely;
   }
 

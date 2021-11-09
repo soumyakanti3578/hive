@@ -181,9 +181,6 @@ public class ParseDriver {
 
     GenericHiveLexer lexer = GenericHiveLexer.of(command, configuration);
     TokenRewriteStream tokens = new TokenRewriteStream(lexer);
-//    if (ctx != null) {
-//      ctx.setTokenRewriteStream(tokens);
-//    }
     HiveParser parser = new HiveParser(tokens);
     parser.setTreeAdaptor(adaptor);
     parser.setHiveConf(configuration);
@@ -204,6 +201,12 @@ public class ParseDriver {
 
     return new ParseResult((ASTNode) r.getTree(), tokens, parser.gFromClauseParser.tables);
   }
+
+  public TokenRewriteStream getTokenRewriteStreamOf(String command) {
+    GenericHiveLexer lexer = GenericHiveLexer.of(command, null);
+    return new TokenRewriteStream(lexer);
+  }
+
   public ASTNode parseExpression(String command) throws ParseException {
     LOG.debug("Parsing expression: {}", command);
 
