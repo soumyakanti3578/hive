@@ -1321,9 +1321,7 @@ public class SemanticAnalyzer extends BaseSemanticAnalyzer {
       ASTNode cteQry = (ASTNode) cte.getChild(0);
       String alias = unescapeIdentifier(cte.getChild(1).getText());
       ASTNode withColList = cte.getChildCount() == 3 ? (ASTNode) cte.getChild(2) : null;
-
-      String qName = qb.getId() == null ? "" : qb.getId() + ":";
-      qName += alias.toLowerCase();
+      String qName = getAliasId(alias, qb);
 
       if ( aliasToCTEs.containsKey(qName)) {
         throw new SemanticException(ASTErrorUtils.getMsg(
@@ -1352,7 +1350,7 @@ public class SemanticAnalyzer extends BaseSemanticAnalyzer {
     }
 
     while (qId.length() > 0) {
-      String nm = qId + ":" + cteName;
+      String nm = getAliasId(cteName, qb);
       CTEClause cte = aliasToCTEs.get(nm);
       if (cte != null) {
         return cte;
@@ -2213,10 +2211,11 @@ public class SemanticAnalyzer extends BaseSemanticAnalyzer {
     for (String alias : qb.getTabAliases()) {
       String tabName = qb.getTabNameForAlias(alias);
       String cteName = tabName.toLowerCase();
+      String scopedCTEName = getAliasId(cteName, qb);
 
       CTEClause cte = findCTEFromName(qb, cteName, materializationAliasToCTEs);
       if (cte != null) {
-        if (ctesExpanded.contains(cteName)) {
+        if (ctesExpanded.contains(scopedCTEName)) {
           throw new SemanticException("Recursive cte " + cteName +
               " detected (cycle: " + StringUtils.join(ctesExpanded, " -> ") +
               " -> " + cteName + ").");
@@ -2229,7 +2228,7 @@ public class SemanticAnalyzer extends BaseSemanticAnalyzer {
         cte.qbExpr = new QBExpr(cteName);
         doPhase1QBExpr(cte.cteNode, cte.qbExpr, qb.getId(), cteName, cte.withColList, materializationAliasToCTEs);
 
-        ctesExpanded.add(cteName);
+        ctesExpanded.add(scopedCTEName);
         gatherCTEReferences(cte.qbExpr, cte, materializationAliasToCTEs);
         ctesExpanded.remove(ctesExpanded.size() - 1);
       }
@@ -2424,7 +2423,7 @@ public class SemanticAnalyzer extends BaseSemanticAnalyzer {
         viewsExpanded.add(aliasToViewInfo.get(alias).getLeft());
         newParentInput = aliasToViewInfo.get(alias).getRight();
       } else if (wasCTE) {
-        ctesExpanded.add(sqAliasToCTEName.get(alias));
+        ctesExpanded.add(getAliasId(sqAliasToCTEName.get(alias), qb));
       }
       QBExpr qbexpr = qb.getSubqForAlias(alias);
       if (qbexpr.getQB() != null && (wasView || qb.isInsideView())) {
