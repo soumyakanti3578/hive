@@ -150,6 +150,7 @@ import org.apache.hadoop.hive.ql.exec.RowSchema;
 import org.apache.hadoop.hive.ql.exec.Utilities;
 import org.apache.hadoop.hive.ql.io.AcidUtils;
 import org.apache.hadoop.hive.ql.lib.Node;
+import org.apache.hadoop.hive.ql.log.LogPerf;
 import org.apache.hadoop.hive.ql.log.PerfLogger;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
 import org.apache.hadoop.hive.ql.metadata.HiveMaterializedViewsRegistry;
@@ -1392,6 +1393,7 @@ public class CalcitePlanner extends SemanticAnalyzer {
    * @return Optimized operator tree translated in to Hive AST
    * @throws SemanticException
    */
+  @LogPerf
   ASTNode getOptimizedAST(RelNode optimizedOptiqPlan) throws SemanticException {
     ASTNode optiqOptimizedAST = ASTConverter.convert(optimizedOptiqPlan, resultSchema,
             HiveConf.getBoolVar(conf, HiveConf.ConfVars.HIVE_COLUMN_ALIGNMENT),ctx.getPlanMapper());

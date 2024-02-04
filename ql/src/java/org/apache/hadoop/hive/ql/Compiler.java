@@ -40,6 +40,7 @@ import org.apache.hadoop.hive.ql.hooks.HookUtils;
 import org.apache.hadoop.hive.ql.io.AcidUtils;
 import org.apache.hadoop.hive.ql.lockmgr.HiveTxnManager;
 import org.apache.hadoop.hive.ql.lockmgr.LockException;
+import org.apache.hadoop.hive.ql.log.LogPerf;
 import org.apache.hadoop.hive.ql.log.PerfLogger;
 import org.apache.hadoop.hive.ql.metadata.AuthorizationException;
 import org.apache.hadoop.hive.ql.metadata.Hive;
@@ -161,9 +162,8 @@ public class Compiler {
     }
   }
 
+  @LogPerf
   private void parse() throws ParseException {
-    perfLogger.perfLogBegin(CLASS_NAME, PerfLogger.PARSE);
-
     // Trigger query hook before compilation
     driverContext.getHookRunner().runBeforeParseHook(context.getCmd());
 
@@ -174,11 +174,10 @@ public class Compiler {
     } finally {
       driverContext.getHookRunner().runAfterParseHook(context.getCmd(), !success);
     }
-    perfLogger.perfLogEnd(CLASS_NAME, PerfLogger.PARSE);
   }
 
+  @LogPerf(method = PerfLogger.ANALYZE)
   private BaseSemanticAnalyzer analyze() throws Exception {
-    perfLogger.perfLogBegin(CLASS_NAME, PerfLogger.ANALYZE);
 
     driverContext.getHookRunner().runBeforeCompileHook(context.getCmd());
 
@@ -240,8 +239,6 @@ public class Compiler {
 
     // validate the plan
     sem.validate();
-
-    perfLogger.perfLogEnd(CLASS_NAME, PerfLogger.ANALYZE);
 
     return sem;
   }

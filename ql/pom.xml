@@ -829,6 +829,16 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <version>1.9.7</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>1.9.7</version>
+    </dependency>
+    <dependency>
       <groupId>com.google.re2j</groupId>
       <artifactId>re2j</artifactId>
     </dependency>
@@ -1176,6 +1186,25 @@
                 <source>src/gen/protobuf/gen-test</source>
               </sources>
             </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>aspectj-maven-plugin</artifactId>
+        <version>1.14.0</version>
+        <configuration>
+          <source>${maven.compiler.source}</source>
+          <target>${maven.compiler.target}</target>
+          <complianceLevel>${maven.compiler.target}</complianceLevel>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>       <!-- use this goal to weave all your main classes -->
+              <goal>test-compile</goal>  <!-- use this goal to weave all your test classes -->
+            </goals>
           </execution>
         </executions>
       </plugin>

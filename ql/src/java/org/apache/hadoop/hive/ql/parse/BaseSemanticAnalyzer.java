@@ -74,6 +74,7 @@ import org.apache.hadoop.hive.ql.hooks.WriteEntity;
 import org.apache.hadoop.hive.ql.io.IgnoreKeyTextOutputFormat;
 import org.apache.hadoop.hive.ql.lib.Node;
 import org.apache.hadoop.hive.ql.lockmgr.HiveTxnManager;
+import org.apache.hadoop.hive.ql.log.LogPerf;
 import org.apache.hadoop.hive.ql.metadata.Hive;
 import org.apache.hadoop.hive.ql.metadata.HiveUtils;
 import org.apache.hadoop.hive.ql.metadata.HiveException;
@@ -321,6 +322,7 @@ public abstract class BaseSemanticAnalyzer {
     return this.ctx;
   }
 
+  @LogPerf(additionalInfo = "BaseSemanticAnalyzer - analyze")
   public void analyze(ASTNode ast, Context ctx) throws SemanticException {
     initCtx(ctx);
     init(true);
