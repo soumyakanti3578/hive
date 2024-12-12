@@ -1,7 +1,7 @@
 set hive.optimize.cte.suggester.class=org.apache.hadoop.hive.ql.optimizer.calcite.CommonTableExpressionPrintSuggester;
 set hive.mapred.mode=nonstrict;
 -- start query 1 in stream 0 using template query41.tpl and seed 1581015815
-explain cbo
+explain cbo joincost
 select  distinct(i_product_name)
 from item i1
 where i_manufact_id between 970 and 970+40

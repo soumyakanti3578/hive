@@ -5,7 +5,7 @@ create materialized view mv_customer_customer_address_n100 as
 select * from customer c, customer_address ca
 where c.c_current_addr_sk=ca.ca_address_sk;
 
-explain cbo
+explain cbo joincost
 with customer_total_return as
  (select wr_returning_customer_sk as ctr_customer_sk
         ,ca_state as ctr_state, 

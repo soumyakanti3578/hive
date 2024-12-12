@@ -1,4 +1,4 @@
-EXPLAIN CBO
+explain cbo joincost
 select  
         ca_country, ca_state, i_item_id,
          avg( cast(cs_quantity as numeric(12,2))) agg1,

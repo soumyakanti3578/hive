@@ -2,7 +2,7 @@ set hive.optimize.cte.suggester.class=org.apache.hadoop.hive.ql.optimizer.calcit
 set hive.mapred.mode=nonstrict;
 set hive.auto.convert.anti.join=true;
 -- start query 1 in stream 0 using template query16.tpl and seed 171719422
-explain cbo
+explain cbo joincost
 select  
    count(distinct cs_order_number) as `order count`
   ,sum(cs_ext_ship_cost) as `total shipping cost`

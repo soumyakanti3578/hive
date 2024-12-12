@@ -5,7 +5,7 @@ create materialized view mv_customer_customer_address_n101 as
 select * from customer c, customer_address ca
 where c.c_current_addr_sk=ca.ca_address_sk;
 
-explain cbo
+explain cbo joincost
 select  ca_zip, ca_county, sum(ws_sales_price)
  from web_sales, customer, customer_address, date_dim, item
  where ws_bill_customer_sk = c_customer_sk

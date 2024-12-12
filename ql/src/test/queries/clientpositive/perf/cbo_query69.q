@@ -2,7 +2,7 @@ set hive.optimize.cte.suggester.class=org.apache.hadoop.hive.ql.optimizer.calcit
 set hive.mapred.mode=nonstrict;
 set hive.auto.convert.anti.join=true;
 -- start query 1 in stream 0 using template query69.tpl and seed 797269820
-explain cbo
+explain cbo joincost
 select  
   cd_gender,
   cd_marital_status,

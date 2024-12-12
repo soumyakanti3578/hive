@@ -1,26 +1,26 @@
 CBO PLAN:
-HiveAggregate(group=[{}], agg#0=[count(DISTINCT $4)], agg#1=[sum($5)], agg#2=[sum($6)])
-  HiveAntiJoin(condition=[=($4, $14)], joinType=[anti])
-    HiveSemiJoin(condition=[AND(<>($3, $13), =($4, $14))], joinType=[semi])
-      HiveProject(cs_ship_date_sk=[$0], cs_ship_addr_sk=[$1], cs_call_center_sk=[$2], cs_warehouse_sk=[$3], cs_order_number=[$4], cs_ext_ship_cost=[$5], cs_net_profit=[$6], d_date_sk=[$11], d_date=[$12], ca_address_sk=[$7], ca_state=[$8], cc_call_center_sk=[$9], cc_county=[$10])
-        HiveJoin(condition=[=($0, $11)], joinType=[inner], algorithm=[none], cost=[not available])
-          HiveJoin(condition=[=($2, $9)], joinType=[inner], algorithm=[none], cost=[not available])
-            HiveJoin(condition=[=($1, $7)], joinType=[inner], algorithm=[none], cost=[not available])
-              HiveProject(cs_ship_date_sk=[$1], cs_ship_addr_sk=[$9], cs_call_center_sk=[$10], cs_warehouse_sk=[$13], cs_order_number=[$16], cs_ext_ship_cost=[$27], cs_net_profit=[$32])
-                HiveFilter(condition=[AND(IS NOT NULL($9), IS NOT NULL($1), IS NOT NULL($10))])
-                  HiveTableScan(table=[[default, catalog_sales]], table:alias=[cs1])
-              HiveProject(ca_address_sk=[$0], ca_state=[CAST(_UTF-16LE'NY'):CHAR(2) CHARACTER SET "UTF-16LE"])
-                HiveFilter(condition=[=($8, _UTF-16LE'NY')])
-                  HiveTableScan(table=[[default, customer_address]], table:alias=[customer_address])
-            HiveProject(cc_call_center_sk=[$0], cc_county=[$25])
-              HiveFilter(condition=[IN($25, _UTF-16LE'Ziebach County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Levy County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Huron County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Franklin Parish':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Daviess County':VARCHAR(30) CHARACTER SET "UTF-16LE")])
-                HiveTableScan(table=[[default, call_center]], table:alias=[call_center])
-          HiveProject(d_date_sk=[$0], d_date=[$2])
-            HiveFilter(condition=[BETWEEN(false, CAST($2):TIMESTAMP(9), 2001-04-01 00:00:00:TIMESTAMP(9), 2001-05-31 00:00:00:TIMESTAMP(9))])
-              HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim])
-      HiveProject(cs_warehouse_sk=[$13], cs_order_number=[$16])
-        HiveFilter(condition=[IS NOT NULL($13)])
-          HiveTableScan(table=[[default, catalog_sales]], table:alias=[cs2])
-    HiveProject(literalTrue=[true], cr_order_number=[$15])
-      HiveTableScan(table=[[default, catalog_returns]], table:alias=[cr1])
+HiveAggregate(group=[{}], agg#0=[count(DISTINCT $4)], agg#1=[sum($5)], agg#2=[sum($6)]): rowcount = 1.0, cumulative cost = {4.354325387765752E10 rows, 0.0 cpu, 0.0 io}, id = 18163
+  HiveAntiJoin(condition=[=($4, $14)], joinType=[anti]): rowcount = 1.0, cumulative cost = {4.354325387765752E10 rows, 0.0 cpu, 0.0 io}, id = 18162
+    HiveSemiJoin(condition=[AND(<>($3, $13), =($4, $14))], joinType=[semi]): rowcount = 1.6067315903939626E8, cumulative cost = {4.354325387765752E10 rows, 0.0 cpu, 0.0 io}, id = 18161
+      HiveProject(cs_ship_date_sk=[$0], cs_ship_addr_sk=[$1], cs_call_center_sk=[$2], cs_warehouse_sk=[$3], cs_order_number=[$4], cs_ext_ship_cost=[$5], cs_net_profit=[$6], d_date_sk=[$11], d_date=[$12], ca_address_sk=[$7], ca_state=[$8], cc_call_center_sk=[$9], cc_county=[$10]): rowcount = 1.6067315903939626E8, cumulative cost = {4.354325387765752E10 rows, 0.0 cpu, 0.0 io}, id = 18160
+        HiveJoin(condition=[=($0, $11)], joinType=[inner], algorithm=[none], cost=[{1.6074620803939626E8 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.6067315903939626E8, cumulative cost = {4.354325387765752E10 rows, 0.0 cpu, 0.0 io}, id = 18159
+          HiveJoin(condition=[=($2, $9)], joinType=[inner], algorithm=[none], cost=[{8.033658071969812E8 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.6067315903939626E8, cumulative cost = {4.338250766961812E10 rows, 0.0 cpu, 0.0 io}, id = 18158
+            HiveJoin(condition=[=($1, $7)], joinType=[inner], algorithm=[none], cost=[{4.2579141862421135E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 8.033657951969812E8, cumulative cost = {4.2579141862421135E10 rows, 0.0 cpu, 0.0 io}, id = 18157
+              HiveProject(cs_ship_date_sk=[$1], cs_ship_addr_sk=[$9], cs_call_center_sk=[$10], cs_warehouse_sk=[$13], cs_order_number=[$16], cs_ext_ship_cost=[$27], cs_net_profit=[$32]): rowcount = 4.257838714544E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18156
+                HiveFilter(condition=[AND(IS NOT NULL($9), IS NOT NULL($1), IS NOT NULL($10))]): rowcount = 4.257838714544E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18155
+                  HiveTableScan(table=[[default, catalog_sales]], table:alias=[cs1]): rowcount = 4.3220864887E10, cumulative cost = {0}, id = 17775
+              HiveProject(ca_address_sk=[$0], ca_state=[CAST(_UTF-16LE'NY'):CHAR(2) CHARACTER SET "UTF-16LE"]): rowcount = 754716.9811320754, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 17986
+                HiveFilter(condition=[=($8, _UTF-16LE'NY')]): rowcount = 754716.9811320754, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 17984
+                  HiveTableScan(table=[[default, customer_address]], table:alias=[customer_address]): rowcount = 4.0E7, cumulative cost = {0}, id = 17782
+            HiveProject(cc_call_center_sk=[$0], cc_county=[$25]): rowcount = 12.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 17993
+              HiveFilter(condition=[IN($25, _UTF-16LE'Ziebach County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Levy County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Huron County':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Franklin Parish':VARCHAR(30) CHARACTER SET "UTF-16LE", _UTF-16LE'Daviess County':VARCHAR(30) CHARACTER SET "UTF-16LE")]): rowcount = 12.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 17991
+                HiveTableScan(table=[[default, call_center]], table:alias=[call_center]): rowcount = 60.0, cumulative cost = {0}, id = 17786
+          HiveProject(d_date_sk=[$0], d_date=[$2]): rowcount = 73049.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18000
+            HiveFilter(condition=[BETWEEN(false, CAST($2):TIMESTAMP(9), 2001-04-01 00:00:00:TIMESTAMP(9), 2001-05-31 00:00:00:TIMESTAMP(9))]): rowcount = 73049.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 17998
+              HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim]): rowcount = 73049.0, cumulative cost = {0}, id = 17778
+      HiveProject(cs_warehouse_sk=[$13], cs_order_number=[$16]): rowcount = 4.3005584639E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18009
+        HiveFilter(condition=[IS NOT NULL($13)]): rowcount = 4.3005584639E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18007
+          HiveTableScan(table=[[default, catalog_sales]], table:alias=[cs2]): rowcount = 4.3220864887E10, cumulative cost = {0}, id = 17790
+    HiveProject(literalTrue=[true], cr_order_number=[$15]): rowcount = 4.320980099E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 18014
+      HiveTableScan(table=[[default, catalog_returns]], table:alias=[cr1]): rowcount = 4.320980099E9, cumulative cost = {0}, id = 17794
 

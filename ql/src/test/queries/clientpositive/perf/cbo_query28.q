@@ -3,7 +3,7 @@ set hive.mapred.mode=nonstrict;
 set hive.optimize.metadataonly=true;
 
 -- start query 1 in stream 0 using template query28.tpl and seed 444293455
-explain cbo
+explain cbo joincost
 select  *
 from (select avg(ss_list_price) B1_LP
             ,count(ss_list_price) B1_CNT

@@ -335,8 +335,8 @@ public class QOutProcessor {
     ppm.add(new PatternReplacementPair(Pattern.compile("Error: Node: (.*) : Error while running task"),
         "Error: Node: #NODE# : Error while running task"));
 
-    ppm.add(new PatternReplacementPair(Pattern.compile("rowcount = [0-9]+(\\.[0-9]+(E[0-9]+)?)?, cumulative cost = \\{.*\\}, id = [0-9]*"),
-        "rowcount = ###Masked###, cumulative cost = ###Masked###, id = ###Masked###"));
+//    ppm.add(new PatternReplacementPair(Pattern.compile("rowcount = [0-9]+(\\.[0-9]+(E[0-9]+)?)?, cumulative cost = \\{.*\\}, id = [0-9]*"),
+//        "rowcount = ###Masked###, cumulative cost = ###Masked###, id = ###Masked###"));
 
     // When a vertex is killed due to failure of upstream vertex, logs are in arbitrary order.
     // We do not want the test to fail because of this.

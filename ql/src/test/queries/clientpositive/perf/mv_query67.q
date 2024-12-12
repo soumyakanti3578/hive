@@ -11,7 +11,7 @@ where  ss_sold_date_sk=d_date_sk
 group by i_category, i_class, i_brand, i_product_name, d_year, d_qoy, d_moy,s_store_id;
 
 -- start query 1 in stream 0 using template query67.tpl and seed 1819994127
-explain cbo
+explain cbo joincost
 select  *
 from (select i_category
             ,i_class
@@ -56,7 +56,7 @@ limit 100;
 
 -- end query 1 in stream 0 using template query67.tpl
 
-explain cbo
+explain cbo joincost
 select  *
 from (select i_category
             ,i_class
@@ -110,7 +110,7 @@ order by i_category
         ,rk
 limit 100;
 
-explain cbo
+explain cbo joincost
 select  *
 from (select i_category
             ,i_class
@@ -154,7 +154,7 @@ order by i_category
 limit 100;
 
 -- NEGATIVE TEST (DISTINCT AGGREGATION)
-explain cbo
+explain cbo joincost
 select  *
 from (select i_category
             ,i_class
@@ -210,7 +210,7 @@ where  ss_sold_date_sk=d_date_sk
     and ss_store_sk = s_store_sk
     and d_month_seq between 1212 and 1212+11;
 
-explain cbo
+explain cbo joincost
 select  *
 from
 (select i_category
@@ -286,7 +286,7 @@ select i_category
           and ss_store_sk = s_store_sk
           and d_month_seq between 1212 and 1212+11) dw1;
 
-explain cbo
+explain cbo joincost
 select  *
 from
 (select i_category
@@ -364,7 +364,7 @@ from (select i_category
           and d_month_seq between 1212 and 1212+11
        group by i_category, i_class, i_brand, i_product_name, d_year, d_qoy, d_moy,s_store_id)dw1) dw2;
 
-explain cbo
+explain cbo joincost
 select  *
 from (select i_category
             ,i_class

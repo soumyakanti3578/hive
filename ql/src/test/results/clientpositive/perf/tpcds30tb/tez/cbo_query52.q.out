@@ -1,17 +1,17 @@
 CBO PLAN:
-HiveProject(d_year=[CAST(1998):INTEGER], brand_id=[$0], brand=[$1], ext_price=[$2])
-  HiveSortLimit(sort0=[$2], sort1=[$0], dir0=[DESC], dir1=[ASC], fetch=[100])
-    HiveProject(i_brand_id=[$0], i_brand=[$1], $f2=[$2])
-      HiveAggregate(group=[{5, 6}], agg#0=[sum($1)])
-        HiveJoin(condition=[=($0, $4)], joinType=[inner], algorithm=[none], cost=[not available])
-          HiveJoin(condition=[=($3, $2)], joinType=[inner], algorithm=[none], cost=[not available])
-            HiveProject(ss_item_sk=[$1], ss_ext_sales_price=[$14], ss_sold_date_sk=[$22])
-              HiveFilter(condition=[IS NOT NULL($22)])
-                HiveTableScan(table=[[default, store_sales]], table:alias=[store_sales])
-            HiveProject(d_date_sk=[$0])
-              HiveFilter(condition=[AND(=($6, 1998), =($8, 12))])
-                HiveTableScan(table=[[default, date_dim]], table:alias=[dt])
-          HiveProject(i_item_sk=[$0], i_brand_id=[$7], i_brand=[$8])
-            HiveFilter(condition=[=($20, 1)])
-              HiveTableScan(table=[[default, item]], table:alias=[item])
+HiveProject(d_year=[CAST(1998):INTEGER], brand_id=[$0], brand=[$1], ext_price=[$2]): rowcount = 100.0, cumulative cost = {8.254543670667955E10 rows, 0.0 cpu, 0.0 io}, id = 69040
+  HiveSortLimit(sort0=[$2], sort1=[$0], dir0=[DESC], dir1=[ASC], fetch=[100]): rowcount = 100.0, cumulative cost = {8.254543670667955E10 rows, 0.0 cpu, 0.0 io}, id = 69039
+    HiveProject(i_brand_id=[$0], i_brand=[$1], $f2=[$2]): rowcount = 236922.73155897466, cumulative cost = {8.254543670667955E10 rows, 0.0 cpu, 0.0 io}, id = 69041
+      HiveAggregate(group=[{5, 6}], agg#0=[sum($1)]): rowcount = 236922.73155897466, cumulative cost = {8.254543670667955E10 rows, 0.0 cpu, 0.0 io}, id = 69038
+        HiveJoin(condition=[=($0, $4)], joinType=[inner], algorithm=[none], cost=[{3.45567370895181E7 rows, 0.0 cpu, 0.0 io}]): rowcount = 332233.6036714019, cumulative cost = {8.254543670667955E10 rows, 0.0 cpu, 0.0 io}, id = 69037
+          HiveJoin(condition=[=($3, $2)], joinType=[inner], algorithm=[none], cost=[{8.251087996959003E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 3.4552294781825796E7, cumulative cost = {8.251087996959003E10 rows, 0.0 cpu, 0.0 io}, id = 69036
+            HiveProject(ss_item_sk=[$1], ss_ext_sales_price=[$14], ss_sold_date_sk=[$22]): rowcount = 8.2510879939E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 68913
+              HiveFilter(condition=[IS NOT NULL($22)]): rowcount = 8.2510879939E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 68911
+                HiveTableScan(table=[[default, store_sales]], table:alias=[store_sales]): rowcount = 8.2510879939E10, cumulative cost = {0}, id = 68776
+            HiveProject(d_date_sk=[$0]): rowcount = 30.59003350083752, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 69035
+              HiveFilter(condition=[AND(=($6, 1998), =($8, 12))]): rowcount = 30.59003350083752, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 69034
+                HiveTableScan(table=[[default, date_dim]], table:alias=[dt]): rowcount = 73049.0, cumulative cost = {0}, id = 68772
+          HiveProject(i_item_sk=[$0], i_brand_id=[$7], i_brand=[$8]): rowcount = 4442.307692307692, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 68925
+            HiveFilter(condition=[=($20, 1)]): rowcount = 4442.307692307692, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 68923
+              HiveTableScan(table=[[default, item]], table:alias=[item]): rowcount = 462000.0, cumulative cost = {0}, id = 68781
 

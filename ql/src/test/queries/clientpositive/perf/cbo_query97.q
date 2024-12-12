@@ -1,7 +1,7 @@
 set hive.optimize.cte.suggester.class=org.apache.hadoop.hive.ql.optimizer.calcite.CommonTableExpressionPrintSuggester;
 set hive.mapred.mode=nonstrict;
 -- start query 1 in stream 0 using template query97.tpl and seed 1819994127
-explain cbo
+explain cbo joincost
 with ssci as (
 select ss_customer_sk customer_sk
       ,ss_item_sk item_sk

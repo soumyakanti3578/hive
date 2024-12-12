@@ -2,7 +2,7 @@ set hive.optimize.cte.suggester.class=org.apache.hadoop.hive.ql.optimizer.calcit
 set hive.mapred.mode=nonstrict;
 set hive.auto.convert.anti.join=true;
 -- start query 1 in stream 0 using template query78.tpl and seed 1819994127
-explain cbo
+explain cbo joincost
 with ws as
   (select d_year AS ws_sold_year, ws_item_sk,
     ws_bill_customer_sk ws_customer_sk,
