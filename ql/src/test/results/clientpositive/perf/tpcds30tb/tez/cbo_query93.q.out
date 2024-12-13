@@ -1,16 +1,16 @@
 CBO PLAN:
-HiveSortLimit(sort0=[$1], sort1=[$0], dir0=[ASC], dir1=[ASC], fetch=[100]): rowcount = 100.0, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 152620
-  HiveProject($f0=[$0], $f1=[$1]): rowcount = 7.8525965E7, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 152690
-    HiveAggregate(group=[{0}], agg#0=[sum($1)]): rowcount = 7.8525965E7, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 152618
-      HiveProject($f0=[$1], $f1=[CASE(IS NOT NULL($8), *(CAST(-($3, $8)):DECIMAL(10, 0), $4), *(CAST($3):DECIMAL(10, 0), $4))]): rowcount = 1.000086404891377E15, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 152616
-        HiveJoin(condition=[AND(=($5, $0), =($7, $2))], joinType=[inner], algorithm=[none], cost=[{8.652225640657747E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000086404891377E15, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 152614
-          HiveProject(ss_item_sk=[$1], ss_customer_sk=[$2], ss_ticket_number=[$8], ss_quantity=[$9], ss_sales_price=[$12]): rowcount = 8.6404891377E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 152600
-            HiveTableScan(table=[[default, store_sales]], table:alias=[store_sales]): rowcount = 8.6404891377E10, cumulative cost = {0}, id = 152489
-          HiveJoin(condition=[=($1, $4)], joinType=[inner], algorithm=[none], cost=[{8.332917101014085E9 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.1736502957746479E8, cumulative cost = {8.332917101014085E9 rows, 0.0 cpu, 0.0 io}, id = 152612
-            HiveProject(sr_item_sk=[$1], sr_reason_sk=[$7], sr_ticket_number=[$8], sr_return_quantity=[$9]): rowcount = 8.3329171E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 152605
-              HiveFilter(condition=[IS NOT NULL($7)]): rowcount = 8.3329171E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 152603
-                HiveTableScan(table=[[default, store_returns]], table:alias=[store_returns]): rowcount = 8.634166995E9, cumulative cost = {0}, id = 152492
-            HiveProject(r_reason_sk=[$0]): rowcount = 1.0140845070422535, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 152610
-              HiveFilter(condition=[=($2, _UTF-16LE'Did not like the warranty                                                                           ')]): rowcount = 1.0140845070422535, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 152608
-                HiveTableScan(table=[[default, reason]], table:alias=[reason]): rowcount = 72.0, cumulative cost = {0}, id = 152498
+HiveSortLimit(sort0=[$1], sort1=[$0], dir0=[ASC], dir1=[ASC], fetch=[100]): rowcount = 100.0, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 151509
+  HiveProject($f0=[$0], $f1=[$1]): rowcount = 7.8525965E7, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 151579
+    HiveAggregate(group=[{0}], agg#0=[sum($1)]): rowcount = 7.8525965E7, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 151507
+      HiveProject($f0=[$1], $f1=[CASE(IS NOT NULL($8), *(CAST(-($3, $8)):DECIMAL(10, 0), $4), *(CAST($3):DECIMAL(10, 0), $4))]): rowcount = 1.000086404891377E15, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 151505
+        HiveJoin(condition=[AND(=($5, $0), =($7, $2))], joinType=[inner], algorithm=[none], cost=[{8.652225640657747E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000086404891377E15, cumulative cost = {9.485517350759155E10 rows, 0.0 cpu, 0.0 io}, id = 151503
+          HiveProject(ss_item_sk=[$1], ss_customer_sk=[$2], ss_ticket_number=[$8], ss_quantity=[$9], ss_sales_price=[$12]): rowcount = 8.6404891377E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 151489
+            HiveTableScan(table=[[default, store_sales]], table:alias=[store_sales]): rowcount = 8.6404891377E10, cumulative cost = {0}, id = 151378
+          HiveJoin(condition=[=($1, $4)], joinType=[inner], algorithm=[none], cost=[{8.332917101014085E9 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.1736502957746479E8, cumulative cost = {8.332917101014085E9 rows, 0.0 cpu, 0.0 io}, id = 151501
+            HiveProject(sr_item_sk=[$1], sr_reason_sk=[$7], sr_ticket_number=[$8], sr_return_quantity=[$9]): rowcount = 8.3329171E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 151494
+              HiveFilter(condition=[IS NOT NULL($7)]): rowcount = 8.3329171E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 151492
+                HiveTableScan(table=[[default, store_returns]], table:alias=[store_returns]): rowcount = 8.634166995E9, cumulative cost = {0}, id = 151381
+            HiveProject(r_reason_sk=[$0]): rowcount = 1.0140845070422535, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 151499
+              HiveFilter(condition=[=($2, _UTF-16LE'Did not like the warranty                                                                           ')]): rowcount = 1.0140845070422535, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 151497
+                HiveTableScan(table=[[default, reason]], table:alias=[reason]): rowcount = 72.0, cumulative cost = {0}, id = 151387
 

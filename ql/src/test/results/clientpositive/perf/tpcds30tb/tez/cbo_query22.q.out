@@ -1,14 +1,14 @@
 CBO PLAN:
-HiveSortLimit(sort0=[$4], sort1=[$0], sort2=[$1], sort3=[$2], sort4=[$3], dir0=[ASC], dir1=[ASC], dir2=[ASC], dir3=[ASC], dir4=[ASC], fetch=[100]): rowcount = 100.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24688
-  HiveProject(i_product_name=[$3], i_brand=[$0], i_class=[$1], i_category=[$2], qoh=[/(CAST($4):DOUBLE, $5)]): rowcount = 2310000.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24740
-    HiveAggregate(group=[{5, 6, 7, 8}], groups=[[{5, 6, 7, 8}, {5, 6, 8}, {5, 8}, {8}, {}]], agg#0=[sum($2)], agg#1=[count($2)]): rowcount = 2310000.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24735
-      HiveJoin(condition=[=($1, $4)], joinType=[inner], algorithm=[none], cost=[{1129428.0442804429 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000000000462E15, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24680
-        HiveJoin(condition=[=($0, $3)], joinType=[inner], algorithm=[none], cost=[{1.6278570299503894E9 rows, 0.0 cpu, 0.0 io}]): rowcount = 667428.0442804428, cumulative cost = {1.6278570299503894E9 rows, 0.0 cpu, 0.0 io}, id = 24675
-          HiveProject(inv_date_sk=[$0], inv_item_sk=[$1], inv_quantity_on_hand=[$3]): rowcount = 1.627857E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24668
-            HiveTableScan(table=[[default, inventory]], table:alias=[inventory]): rowcount = 1.627857E9, cumulative cost = {0}, id = 24561
-          HiveProject(d_date_sk=[$0]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24673
-            HiveFilter(condition=[BETWEEN(false, $3, 1212, 1223)]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24671
-              HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim]): rowcount = 73049.0, cumulative cost = {0}, id = 24564
-        HiveProject(i_item_sk=[$0], i_brand=[$8], i_class=[$10], i_category=[$12], i_product_name=[$21]): rowcount = 462000.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24678
-          HiveTableScan(table=[[default, item]], table:alias=[item]): rowcount = 462000.0, cumulative cost = {0}, id = 24570
+HiveSortLimit(sort0=[$4], sort1=[$0], sort2=[$1], sort3=[$2], sort4=[$3], dir0=[ASC], dir1=[ASC], dir2=[ASC], dir3=[ASC], dir4=[ASC], fetch=[100]): rowcount = 100.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24438
+  HiveProject(i_product_name=[$3], i_brand=[$0], i_class=[$1], i_category=[$2], qoh=[/(CAST($4):DOUBLE, $5)]): rowcount = 2310000.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24490
+    HiveAggregate(group=[{5, 6, 7, 8}], groups=[[{5, 6, 7, 8}, {5, 6, 8}, {5, 8}, {8}, {}]], agg#0=[sum($2)], agg#1=[count($2)]): rowcount = 2310000.0, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24485
+      HiveJoin(condition=[=($1, $4)], joinType=[inner], algorithm=[none], cost=[{1129428.0442804429 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000000000462E15, cumulative cost = {1.62898645799467E9 rows, 0.0 cpu, 0.0 io}, id = 24430
+        HiveJoin(condition=[=($0, $3)], joinType=[inner], algorithm=[none], cost=[{1.6278570299503894E9 rows, 0.0 cpu, 0.0 io}]): rowcount = 667428.0442804428, cumulative cost = {1.6278570299503894E9 rows, 0.0 cpu, 0.0 io}, id = 24425
+          HiveProject(inv_date_sk=[$0], inv_item_sk=[$1], inv_quantity_on_hand=[$3]): rowcount = 1.627857E9, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24418
+            HiveTableScan(table=[[default, inventory]], table:alias=[inventory]): rowcount = 1.627857E9, cumulative cost = {0}, id = 24311
+          HiveProject(d_date_sk=[$0]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24423
+            HiveFilter(condition=[SEARCH($3, Sarg[[1212..1223]])]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24421
+              HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim]): rowcount = 73049.0, cumulative cost = {0}, id = 24314
+        HiveProject(i_item_sk=[$0], i_brand=[$8], i_class=[$10], i_category=[$12], i_product_name=[$21]): rowcount = 462000.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 24428
+          HiveTableScan(table=[[default, item]], table:alias=[item]): rowcount = 462000.0, cumulative cost = {0}, id = 24320
 
