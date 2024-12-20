@@ -1,22 +1,22 @@
 CBO PLAN:
-HiveProject(_o__c0=[$0], sm_type=[$1], cc_name=[$2], 30 days=[$3], 31-60 days=[$4], 61-90 days=[$5], 91-120 days=[$6], >120 days=[$7]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 155966
-  HiveSortLimit(sort0=[$8], sort1=[$1], sort2=[$2], dir0=[ASC], dir1=[ASC], dir2=[ASC], fetch=[100]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 155965
-    HiveProject(_o__c0=[$1], sm_type=[$0], cc_name=[$2], 30 days=[$3], 31-60 days=[$4], 61-90 days=[$5], 91-120 days=[$6], >120 days=[$7], (tok_function substr (tok_table_or_col w_warehouse_name) 1 20)=[$1]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 155964
-      HiveAggregate(group=[{11, 13, 15}], agg#0=[sum($4)], agg#1=[sum($5)], agg#2=[sum($6)], agg#3=[sum($7)], agg#4=[sum($8)]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 155963
-        HiveJoin(condition=[=($1, $14)], joinType=[inner], algorithm=[none], cost=[{1.000000000000087E15 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.00000000000006E15, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 155962
-          HiveJoin(condition=[=($3, $12)], joinType=[inner], algorithm=[none], cost=[{1.000000000000047E15 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000000000000027E15, cumulative cost = {1.0000423841579525E15 rows, 0.0 cpu, 0.0 io}, id = 155961
-            HiveJoin(condition=[=($2, $10)], joinType=[inner], algorithm=[none], cost=[{1.7370576498157166E7 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.00000000000002E15, cumulative cost = {4.238415790545387E10 rows, 0.0 cpu, 0.0 io}, id = 155960
-              HiveJoin(condition=[=($0, $9)], joinType=[inner], algorithm=[none], cost=[{4.236678732895572E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.7370556498157166E7, cumulative cost = {4.236678732895572E10 rows, 0.0 cpu, 0.0 io}, id = 155959
-                HiveProject(cs_ship_date_sk=[$1], cs_call_center_sk=[$10], cs_ship_mode_sk=[$12], cs_warehouse_sk=[$13], $f3=[CAST(CASE(<=(-($1, $33), 30), 1, 0)):INTEGER], $f4=[CAST(CASE(AND(>(-($1, $33), 30), <=(-($1, $33), 60)), 1, 0)):INTEGER], $f5=[CAST(CASE(AND(>(-($1, $33), 60), <=(-($1, $33), 90)), 1, 0)):INTEGER], $f6=[CAST(CASE(AND(>(-($1, $33), 90), <=(-($1, $33), 120)), 1, 0)):INTEGER], $f7=[CAST(CASE(>(-($1, $33), 120), 1, 0)):INTEGER]): rowcount = 4.236678729900533E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155958
-                  HiveFilter(condition=[AND(IS NOT NULL($1), IS NOT NULL($13), IS NOT NULL($12), IS NOT NULL($10))]): rowcount = 4.236678729900533E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155957
-                    HiveTableScan(table=[[default, catalog_sales]], table:alias=[catalog_sales]): rowcount = 4.3220864887E10, cumulative cost = {0}, id = 155497
-                HiveProject(d_date_sk=[$0]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155805
-                  HiveFilter(condition=[SEARCH($3, Sarg[[1212..1223]])]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155803
-                    HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim]): rowcount = 73049.0, cumulative cost = {0}, id = 155516
-              HiveProject(sm_ship_mode_sk=[$0], sm_type=[$2]): rowcount = 20.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155810
-                HiveTableScan(table=[[default, ship_mode]], table:alias=[ship_mode]): rowcount = 20.0, cumulative cost = {0}, id = 155506
-            HiveProject(w_warehouse_sk=[$0], $f0=[substr($2, 1, 20)]): rowcount = 27.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155815
-              HiveTableScan(table=[[default, warehouse]], table:alias=[warehouse]): rowcount = 27.0, cumulative cost = {0}, id = 155501
-          HiveProject(cc_call_center_sk=[$0], cc_name=[$6]): rowcount = 60.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155820
-            HiveTableScan(table=[[default, call_center]], table:alias=[call_center]): rowcount = 60.0, cumulative cost = {0}, id = 155511
+HiveProject(_o__c0=[$0], sm_type=[$1], cc_name=[$2], 30 days=[$3], 31-60 days=[$4], 61-90 days=[$5], 91-120 days=[$6], >120 days=[$7]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 156113
+  HiveSortLimit(sort0=[$8], sort1=[$1], sort2=[$2], dir0=[ASC], dir1=[ASC], dir2=[ASC], fetch=[100]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 156112
+    HiveProject(_o__c0=[$1], sm_type=[$0], cc_name=[$2], 30 days=[$3], 31-60 days=[$4], 61-90 days=[$5], 91-120 days=[$6], >120 days=[$7], (tok_function substr (tok_table_or_col w_warehouse_name) 1 20)=[$1]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 156111
+      HiveAggregate(group=[{11, 13, 15}], agg#0=[sum($4)], agg#1=[sum($5)], agg#2=[sum($6)], agg#3=[sum($7)], agg#4=[sum($8)]): rowcount = 30.0, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 156110
+        HiveJoin(condition=[=($1, $14)], joinType=[inner], algorithm=[none], cost=[{1.000000000000087E15 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.00000000000006E15, cumulative cost = {2.0000423841580395E15 rows, 0.0 cpu, 0.0 io}, id = 156109
+          HiveJoin(condition=[=($3, $12)], joinType=[inner], algorithm=[none], cost=[{1.000000000000047E15 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.000000000000027E15, cumulative cost = {1.0000423841579525E15 rows, 0.0 cpu, 0.0 io}, id = 156108
+            HiveJoin(condition=[=($2, $10)], joinType=[inner], algorithm=[none], cost=[{1.7370576498157166E7 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.00000000000002E15, cumulative cost = {4.238415790545387E10 rows, 0.0 cpu, 0.0 io}, id = 156107
+              HiveJoin(condition=[=($0, $9)], joinType=[inner], algorithm=[none], cost=[{4.236678732895572E10 rows, 0.0 cpu, 0.0 io}]): rowcount = 1.7370556498157166E7, cumulative cost = {4.236678732895572E10 rows, 0.0 cpu, 0.0 io}, id = 156106
+                HiveProject(cs_ship_date_sk=[$1], cs_call_center_sk=[$10], cs_ship_mode_sk=[$12], cs_warehouse_sk=[$13], $f3=[CAST(CASE(<=(-($1, $33), 30), 1, 0)):INTEGER], $f4=[CAST(CASE(AND(>(-($1, $33), 30), <=(-($1, $33), 60)), 1, 0)):INTEGER], $f5=[CAST(CASE(AND(>(-($1, $33), 60), <=(-($1, $33), 90)), 1, 0)):INTEGER], $f6=[CAST(CASE(AND(>(-($1, $33), 90), <=(-($1, $33), 120)), 1, 0)):INTEGER], $f7=[CAST(CASE(>(-($1, $33), 120), 1, 0)):INTEGER]): rowcount = 4.236678729900533E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 156105
+                  HiveFilter(condition=[AND(IS NOT NULL($1), IS NOT NULL($13), IS NOT NULL($12), IS NOT NULL($10))]): rowcount = 4.236678729900533E10, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 156104
+                    HiveTableScan(table=[[default, catalog_sales]], table:alias=[catalog_sales]): rowcount = 4.3220864887E10, cumulative cost = {0}, id = 155644
+                HiveProject(d_date_sk=[$0]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155952
+                  HiveFilter(condition=[SEARCH($3, Sarg[[1212..1223]])]): rowcount = 29.95038950389504, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155950
+                    HiveTableScan(table=[[default, date_dim]], table:alias=[date_dim]): rowcount = 73049.0, cumulative cost = {0}, id = 155663
+              HiveProject(sm_ship_mode_sk=[$0], sm_type=[$2]): rowcount = 20.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155957
+                HiveTableScan(table=[[default, ship_mode]], table:alias=[ship_mode]): rowcount = 20.0, cumulative cost = {0}, id = 155653
+            HiveProject(w_warehouse_sk=[$0], $f0=[substr($2, 1, 20)]): rowcount = 27.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155962
+              HiveTableScan(table=[[default, warehouse]], table:alias=[warehouse]): rowcount = 27.0, cumulative cost = {0}, id = 155648
+          HiveProject(cc_call_center_sk=[$0], cc_name=[$6]): rowcount = 60.0, cumulative cost = {0.0 rows, 0.0 cpu, 0.0 io}, id = 155967
+            HiveTableScan(table=[[default, call_center]], table:alias=[call_center]): rowcount = 60.0, cumulative cost = {0}, id = 155658
 
